@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>シミュレーション結果</title>
+</head>
+<body>
+    <h1>シミュレーション結果</h1>
+    {% for product_name, quantity in quantities.items %}
+        <p>{{ product_name }}: {{ quantity }} 個</p>
+    {% endfor %}
+    <a href="{% url 'simulate_sales' %}">戻る</a>
+</body>
+</html>
+

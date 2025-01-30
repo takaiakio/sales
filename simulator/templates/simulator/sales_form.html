@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>little_m 売上シミュレーター</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .product-form {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #f1f1f1;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>little_m 売上シミュレーター</h1>
+
+<!-- 商品数の変更フォーム -->
+<form method="get">
+    <label for="num_products">商品数:</label>
+    <input type="number" id="num_products" name="num_products" value="{{ num_products }}" min="1">
+    <button type="submit">更新</button>
+</form>
+
+<!-- メインの売上シミュレーションフォーム -->
+<form method="post">
+    {% csrf_token %}
+
+    <!-- 目標売上のフォーム -->
+    <label for="id_target_sales">目標売上(円):</label>
+    {{ target_sales_form.target_sales }}
+
+    {{ formset.management_form }}
+
+    <!-- 各商品の入力フォーム -->
+    {% for form in formset %}
+        <div class="product-form">
+            <label>商品名:</label>
+            {{ form.name }}
+            <label>価格(円):</label>
+            {{ form.price }}
+            <label>販売比率(1~10):</label>
+            {{ form.ratio }}
+        </div>
+    {% endfor %}
+
+    <button type="submit">計算</button>
+</form>
+
+</body>
+</html>
+
+
+

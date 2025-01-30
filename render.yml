@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sales-simulator
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn sales_simulator.wsgi"
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        value: your-secret-key
+      - key: DJANGO_DEBUG
+        value: "False"
